@@ -1,12 +1,12 @@
 require('dotenv').config();
 const axios = require('axios');
-const randomeWords = require('random-words');
+const randomWords = require('random-words');
 const { Movie } = require('../models');
 const OMDbAPI = process.env.OMDb;
 const mainURL = `http://www.omdbapi.com/?apikey=${OMDbAPI}`;
 
 function dumpIMDB() {
-  const words = randomeWords(1000);
+  const words = randomWords(1000);
   // Make a request for a user with a given ID
   words.forEach(word => {
     axios
