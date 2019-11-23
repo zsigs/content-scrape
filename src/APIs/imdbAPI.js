@@ -41,40 +41,40 @@ function dumpIMDB() {
 }
 
 function getMoreMovieInfo() {
-  Movie.find({  })
+  Movie.find({})
     .then(res => {
       console.log(res.length);
-      for (let i = 0; i < res.length; i++){
-      axios.get(`${mainURL}&i=${res[i].imdbId}`).then( async movieRes => {
-        console.log(movieRes.data);
-        const {
-          Released,
-          Runtime,
-          Genre,
-          Director,
-          Actors,
-          Plot,
-          Language,
-          imdbRating
-        } = movieRes.data;
-        const filter = { imdbId: movieRes.data.imdbID };
-        const updateObj = {
-          releaseDate: Released,
-          runtime: Runtime,
-          genre: Genre,
-          director: Director,
-          actors: Actors,
-          plot: Plot,
-          lang: Language,
-          imdbRating: imdbRating
-        };
+      for (let i = 0; i < res.length; i++) {
+        axios.get(`${mainURL}&i=${res[i].imdbId}`).then(async movieRes => {
+          console.log(movieRes.data);
+          const {
+            Released,
+            Runtime,
+            Genre,
+            Director,
+            Actors,
+            Plot,
+            Language,
+            imdbRating
+          } = movieRes.data;
+          const filter = { imdbId: movieRes.data.imdbID };
+          const updateObj = {
+            releaseDate: Released,
+            runtime: Runtime,
+            genre: Genre,
+            director: Director,
+            actors: Actors,
+            plot: Plot,
+            lang: Language,
+            imdbRating: imdbRating
+          };
 
-        let mov = await Movie.findOneAndUpdate(filter, updateObj, {
-          new: true
+          let mov = await Movie.findOneAndUpdate(filter, updateObj, {
+            new: true
+          });
+          console.log(mov);
         });
-        console.log(mov);
-      });
-    }
+      }
     })
     .catch(err => console.log(err));
 }
@@ -82,4 +82,4 @@ function getMoreMovieInfo() {
 module.exports = {
   dumpIMDB,
   getMoreMovieInfo
-}
+};
